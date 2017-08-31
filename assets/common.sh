@@ -21,7 +21,7 @@ login() {
 
   set +e
   local out=$($FLY -t "$target" login -n "$team" -c "$url" --username="$username" --password="$password" 2>&1)
-
+  echo "$out"
   # This sucks
   echo "$out" | grep "fly -t ${target} sync" > /dev/null && {
     test -n "$tried" && return 1;
