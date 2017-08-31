@@ -20,10 +20,10 @@ login() {
   local tried="$6"
 
   set +e
-  local out=$($FLY login -t "$target" -n "$team" -c "$url" --username="$username" --password="$password" 2>&1)
+  local out=$($FLY login -n "$team" -c "$url" --username="$username" --password="$password" 2>&1)
 
   # This sucks
-  echo "$out" | grep "fly -t $target sync" > /dev/null && {
+  echo "$out" | grep "fly sync" > /dev/null && {
     test -n "$tried" && return 1;
     fetch_fly;
     login "$url" "$username" "$password" "$team" "$target" yes;
