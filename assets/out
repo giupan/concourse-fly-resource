@@ -35,7 +35,7 @@ options=$(jq -r '.params.options // ""' < $payload)
 
 init_fly "$url" "$username" "$password" "$team" "$target"
 
-fly "$command" $options
+fly -t "$target" "$command" $options
 
 jq -n "{
   version: {}
