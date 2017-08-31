@@ -16,16 +16,17 @@ login() {
   local username="$2"
   local password="$3"
   local team="$4"
-  local tried="$5"
+  local target="$5"
+  local tried="$6"
 
   set +e
-  local out=$($FLY login -t main -n "$team" -c "$url" --username="$username" --password="$password" 2>&1)
+  local out=$($FLY login -t "$target" -n "$team" -c "$url" --username="$username" --password="$password" 2>&1)
 
   # This sucks
-  echo "$out" | grep "fly -t main sync" > /dev/null && {
+  echo "$out" | grep "fly -t $target sync" > /dev/null && {
     test -n "$tried" && return 1;
     fetch_fly;
-    login "$url" "$username" "$password" "$team" yes;
+    login "$url" "$username" "$password" "$team" "$target" yes;
   }
   set -e
 }
@@ -35,7 +36,8 @@ init_fly() {
   local username="$2"
   local password="$3"
   local team="$4"
+  local target="$5"
 
   fetch_fly "$url"
-  login "$url" "$username" "$password" "$team"
+  login "$url" "$username" "$password" "$team" "$target"
 }

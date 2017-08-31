@@ -1,5 +1,5 @@
 FROM alpine:edge
-MAINTAINER Malte Schirmacher <malte.schirmacher@etecture.de>
+MAINTAINER Giuseppe La Tona <giuseppelatona@gmail.com>
 
 COPY assets/* /opt/resource/
 

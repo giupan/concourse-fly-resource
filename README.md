@@ -10,7 +10,7 @@ resource_types:
 - name: fly
   type: docker-image
   source:
-    repository: troykinsella/concourse-fly-resource
+    repository: giupan/concourse-fly-resource
     tag: latest
 ```
 
@@ -22,6 +22,7 @@ Currently only HTTP basic authentication is supported.
 * `username`: _Required_. The concourse basic auth username.
 * `password`: _Required_. The concourse basic auth password.
 * `team`: _Optional_. The concourse team to work upon. Defaults to `main`
+* `target`: _Optional_. The concourse target to work upon. Defaults to `main`
 
 ### Example
 
@@ -30,10 +31,11 @@ resources:
 - name: fly
   type: fly
   source:
-    url: {{concourse_url}}
-    username: {{concourse_username}}
-    password: {{concourse_password}}
-    team: {{concourse_team}}
+    url: ((concourse_url))
+    username: ((concourse_username))
+    password: ((concourse_password))
+    team: ((concourse_team))
+    target: ((concourse_team))
 ```
 
 ## Behaviour
@@ -56,7 +58,7 @@ Concourse instance if not already present or if there is a version mismatch betw
 
 Parameters are passed through to the `fly` command as follows:
 ```sh
-fly -t $team $command $options
+fly -t $target -n $team $command $options
 ```
 `main` is the name of the target Concourse instance.
 
